@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Lê o arquivo local.properties
+Properties properties = new Properties()
+if (rootProject.file("local.properties").exists()) {
+    properties.load(rootProject.file("local.properties").newDataInputStream())
+}
+
+android {
+    namespace 'com.exemplo.registropresenca'  // Substitua pelo seu pacote se necessário
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.exemplo.registropresenca"
+        minSdk 23
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        // ... outras configurações
+        buildConfigField "String", "SUPABASE_URL", "\"" + properties.getProperty("supabase.url") + "\""
+        buildConfigField "String", "SUPABASE_ANON_KEY", "\"" + properties.getProperty("supabase.anon.key") + "\""
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // --- Daqui para baixo são as dependências que você precisa adicionar ---
+    // Biometria
+    implementation 'androidx.biometric:biometric:1.2.0-alpha05'
+
+    // Retrofit (para chamar o Supabase)
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // ViewModel e LiveData (MVVM)
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // Google Play Services (localização)
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
+
+    dependencies {
+        // ... outras dependências
+        implementation 'androidx.security:security-crypto:1.0.0'
+    }
+}
