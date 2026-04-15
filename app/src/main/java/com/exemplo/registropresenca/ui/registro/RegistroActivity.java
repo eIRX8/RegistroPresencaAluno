@@ -1,18 +1,20 @@
 package com.exemplo.registropresenca.ui.registro;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
-
+import com.bumptech.glide.Glide;
 import com.exemplo.registropresenca.R;
 import com.exemplo.registropresenca.data.local.TokenManager;
 import com.exemplo.registropresenca.data.model.Aluno;
@@ -22,7 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 /**
  * Tela de registro de presença.
- * Exibe informações do aluno e unidade em uma única caixa.
+ * Exibe foto, nome, turma e unidade do aluno em uma única tela.
  */
 public class RegistroActivity extends AppCompatActivity {
 
@@ -30,7 +32,8 @@ public class RegistroActivity extends AppCompatActivity {
     private TokenManager tokenManager;
     private LocationHelper locationHelper;
 
-    private TextView tvInfoAluno;      // Caixa única com aluno + turma + unidade
+    private ImageView ivFotoAluno;          // Foto do aluno
+    private TextView tvInfoAluno;            // Nome + Turma + Unidade
     private TextView tvMensagem;
     private Button btnRegistrar;
 
@@ -49,6 +52,7 @@ public class RegistroActivity extends AppCompatActivity {
         locationHelper = new LocationHelper(this);
 
         // Conecta elementos da UI
+        ivFotoAluno = findViewById(R.id.ivFotoAluno);
         tvInfoAluno = findViewById(R.id.tvInfoAluno);
         tvMensagem = findViewById(R.id.tvMensagem);
         btnRegistrar = findViewById(R.id.btnRegistrar);
@@ -68,6 +72,7 @@ public class RegistroActivity extends AppCompatActivity {
         viewModel.getAluno().observe(this, aluno -> {
             alunoAtual = aluno;
             atualizarInfoCompleta();
+            carregarFoto(aluno.getFotoUrl());
         });
 
         // Observa a unidade escolar
@@ -89,12 +94,12 @@ public class RegistroActivity extends AppCompatActivity {
             btnRegistrar.setEnabled(!loading);
         });
 
-        // Observa presença registrada - MODIFICADO para passar o nome da unidade
+        // Observa presença registrada
         viewModel.getPresencaRegistrada().observe(this, presenca -> {
             if (unidadeAtual != null) {
-                SucessoActivity.start(this, presenca, unidadeAtual.getNome());
+                SucessoActivity.start(this, presenca, unidadeAtual.getNome(), alunoAtual.getFotoUrl());
             } else {
-                SucessoActivity.start(this, presenca, "Não informada");
+                SucessoActivity.start(this, presenca, "Não informada", alunoAtual.getFotoUrl());
             }
         });
 
@@ -108,7 +113,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     /**
-     * Atualiza a exibição das informações do aluno e unidade em uma única caixa.
+     * Atualiza a exibição das informações do aluno e unidade.
      */
     private void atualizarInfoCompleta() {
         StringBuilder texto = new StringBuilder();
@@ -123,6 +128,27 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         tvInfoAluno.setText(texto.toString());
+    }
+
+    /**
+     * Carrega a foto do aluno usando Glide.
+     * @param url URL da foto no Supabase Storage
+     */
+    private void carregarFoto(String url) {
+        if (url != null && !url.isEmpty()) {
+            Glide.with(this)
+                    .load(url)
+                    .placeholder(R.drawable.ic_default_avatar)
+                    .error(R.drawable.ic_default_avatar)
+                    .circleCrop()
+                    .into(ivFotoAluno);
+        } else {
+            // Foto padrão se não tiver URL
+            Glide.with(this)
+                    .load(R.drawable.ic_default_avatar)
+                    .circleCrop()
+                    .into(ivFotoAluno);
+        }
     }
 
     /**

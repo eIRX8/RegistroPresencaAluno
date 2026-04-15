@@ -10,21 +10,52 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <!-- Linha: FOTO + DADOS DA PRESENÇA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <!-- Foto do aluno -->
+            <ImageView
+                android:id="@+id/ivFotoSucesso"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_default_avatar"
+                android:scaleType="centerCrop"
+                android:background="@android:drawable/edit_text"
+                android:padding="4dp" />
+
+            <!-- Dados da presença -->
+            <TextView
+                android:id="@+id/tvDadosSucesso"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Mensagem de sucesso -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Presença Registrada!"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:text="✅ Presença Registrada"
+            android:textSize="24sp"
             android:textColor="@android:color/holo_green_dark"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginTop="16dp" />
 
+        <!-- Boa Aula -->
         <TextView
-            android:id="@+id/tvDadosSucesso"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
-            android:padding="16dp"
-            android:textSize="16sp" />
+            android:text="Boa Aula!!!"
+            android:textSize="20sp"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_marginTop="8dp" />
+
     </LinearLayout>
 </ScrollView>

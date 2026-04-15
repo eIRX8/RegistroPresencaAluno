@@ -37,6 +37,11 @@ public class Aluno implements Serializable {
     @SerializedName("unidade_id")
     private long unidadeId;  // 0 = não associado a nenhuma unidade
 
+    // Novo campo: fotourl
+    @SerializedName("foto_url")
+    private String fotoUrl;
+
+
     // Construtores
     public Aluno() {}
 
@@ -65,6 +70,7 @@ public class Aluno implements Serializable {
     public double getLatitudeEscola() { return latitudeEscola; }
     public double getLongitudeEscola() { return longitudeEscola; }
     public long getUnidadeId() { return unidadeId; }
+    public String getFotoUrl() { return fotoUrl; }
 
     // Setters
     public void setRa(String ra) { this.ra = ra; }
@@ -73,6 +79,7 @@ public class Aluno implements Serializable {
     public void setLatitudeEscola(double latitudeEscola) { this.latitudeEscola = latitudeEscola; }
     public void setLongitudeEscola(double longitudeEscola) { this.longitudeEscola = longitudeEscola; }
     public void setUnidadeId(long unidadeId) { this.unidadeId = unidadeId; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
 
     /**
      * Verifica se o aluno usa o novo sistema de unidades.

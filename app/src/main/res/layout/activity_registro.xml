@@ -6,6 +6,7 @@
     android:padding="16dp"
     android:gravity="center_horizontal">
 
+    <!-- Título -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,16 +14,37 @@
         android:textSize="22sp"
         android:layout_marginBottom="24dp" />
 
-    <!-- Caixa ÚNICA: Aluno + Turma + Unidade -->
-    <TextView
-        android:id="@+id/tvInfoAluno"
+    <!-- Linha: FOTO + INFORMAÇÕES DO ALUNO -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/edit_text"
-        android:padding="12dp"
-        android:textSize="16sp"
-        android:layout_marginBottom="24dp" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
 
+        <!-- Foto do aluno -->
+        <ImageView
+            android:id="@+id/ivFotoAluno"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_default_avatar"
+            android:scaleType="centerCrop"
+            android:background="@android:drawable/edit_text"
+            android:padding="4dp" />
+
+        <!-- Informações do aluno (Nome, Turma, Unidade) -->
+        <TextView
+            android:id="@+id/tvInfoAluno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Botão Registrar -->
     <Button
         android:id="@+id/btnRegistrar"
         android:layout_width="wrap_content"
@@ -31,6 +53,7 @@
         android:backgroundTint="@color/design_default_color_primary"
         android:textColor="@android:color/white" />
 
+    <!-- Mensagens de erro/informação -->
     <TextView
         android:id="@+id/tvMensagem"
         android:layout_width="match_parent"
