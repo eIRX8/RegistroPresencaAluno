@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">RegistroPresencaAluno</string>
+    <!-- Nome que aparece abaixo do ícone -->
+    <string name="app_name">Presenca</string>
 </resources>

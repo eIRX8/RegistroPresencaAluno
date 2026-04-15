@@ -13,6 +13,7 @@
         android:textSize="22sp"
         android:layout_marginBottom="24dp" />
 
+    <!-- Caixa ÚNICA: Aluno + Turma + Unidade -->
     <TextView
         android:id="@+id/tvInfoAluno"
         android:layout_width="match_parent"
@@ -38,4 +39,5 @@
         android:gravity="center"
         android:textColor="@android:color/holo_red_dark"
         android:text="" />
+
 </LinearLayout>
