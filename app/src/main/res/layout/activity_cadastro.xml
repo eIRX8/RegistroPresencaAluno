@@ -1,34 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="#0F5C4D">
 
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logoTopo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/logo"
+        android:scaleType="fitCenter" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Título -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Primeiro acesso"
+        android:layout_marginBottom="32dp"
+        android:text="Primeiro Acesso"
         android:textSize="24sp"
-        android:layout_marginBottom="32dp" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
+    <!-- Campo RA -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="RA do Aluno">
+        android:hint="RA do Aluno"
+        app:hintTextColor="#CCFFFFFF"
+        app:boxBackgroundColor="#1FFFFFFF"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editRa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#CCFFFFFF" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <!-- Botão Cadastrar -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCadastrar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:text="CADASTRAR E AUTENTICAR DIGITAL"
+        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#0F5C4D"
+        app:cornerRadius="16dp" />
+
+    <!-- Mensagem de erro -->
+    <TextView
+        android:id="@+id/tvMensagem"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cadastrar e autenticar digital"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="#FF5252"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 </LinearLayout>

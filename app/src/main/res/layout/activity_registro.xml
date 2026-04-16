@@ -1,66 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center_horizontal">
+    android:background="#0F5C4D">
 
-    <!-- Título -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registro de Presença"
-        android:textSize="22sp"
-        android:layout_marginBottom="24dp" />
-
-    <!-- Linha: FOTO + INFORMAÇÕES DO ALUNO -->
+    <!-- Logo no topo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="24dp">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="16dp">
 
-        <!-- Foto do aluno -->
         <ImageView
-            android:id="@+id/ivFotoAluno"
+            android:id="@+id/logoTopo"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/ic_default_avatar"
-            android:scaleType="centerCrop"
-            android:background="@android:drawable/edit_text"
-            android:padding="4dp" />
+            android:src="@drawable/logo"
+            android:scaleType="fitCenter" />
 
-        <!-- Informações do aluno (Nome, Turma, Unidade) -->
         <TextView
-            android:id="@+id/tvInfoAluno"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="12dp"
-            android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Registro de Presença"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
-    <!-- Botão Registrar -->
-    <Button
-        android:id="@+id/btnRegistrar"
-        android:layout_width="wrap_content"
+    <!-- Card do aluno -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardAluno"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar Presença"
-        android:backgroundTint="@color/design_default_color_primary"
-        android:textColor="@android:color/white" />
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#1FFFFFFF">
 
-    <!-- Mensagens de erro/informação -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <!-- Foto do aluno -->
+            <ImageView
+                android:id="@+id/ivFotoAluno"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_default_avatar"
+                android:scaleType="centerCrop" />
+
+            <!-- Informações -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp">
+
+                <TextView
+                    android:id="@+id/txtNome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carregando..."
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtTurma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/txtUnidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Mensagem -->
     <TextView
         android:id="@+id/tvMensagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:textColor="@android:color/holo_red_dark"
-        android:text="" />
+        android:textColor="#FF5252"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <!-- Botão -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/botaoPresenca"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="REGISTRAR PRESENÇA"
+        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#0F5C4D"
+        app:cornerRadius="16dp" />
 
 </LinearLayout>

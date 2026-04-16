@@ -1,9 +1,16 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.RegistroPresencaAluno" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+<resources>
+    <style name="Theme.RegistroPresenca" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Cor primária -->
+        <item name="colorPrimary">#0F5C4D</item>
+        <item name="colorPrimaryVariant">#0A4A3D</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
 
-    <style name="Theme.RegistroPresencaAluno" parent="Base.Theme.RegistroPresencaAluno" />
+        <!-- Cor secundária -->
+        <item name="colorSecondary">#F2C94C</item>
+        <item name="colorSecondaryVariant">#D4A82E</item>
+        <item name="colorOnSecondary">#000000</item>
+
+        <!-- Cor de fundo -->
+        <item name="android:windowBackground">@color/primary</item>
+    </style>
 </resources>

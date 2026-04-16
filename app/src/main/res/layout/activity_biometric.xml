@@ -4,25 +4,63 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp">
+    android:padding="32dp"
+    android:background="#0F5C4D">
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/logoTopo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo_nova_acropole"
+        android:scaleType="fitCenter" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Ícone da digital (nosso próprio ícone) -->
+    <ImageView
+        android:id="@+id/iconeDigital"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_fingerprint"
+        android:tint="#80FFFFFF"
+        android:alpha="0.8" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Autenticação Biométrica"
         android:textSize="22sp"
-        android:layout_marginBottom="16dp" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Coloque o dedo no sensor"
-        android:textSize="16sp"
-        android:textColor="@android:color/darker_gray" />
+        android:textSize="14sp"
+        android:textColor="#CCFFFFFF"
+        android:alpha="0.7" />
 
-    <ProgressBar
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:indeterminate="true" />
+    <TextView
+        android:id="@+id/tvMensagemBiometric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textColor="#FF5252"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 </LinearLayout>

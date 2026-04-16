@@ -1,18 +1,21 @@
 package com.exemplo.registropresenca.ui.cadastro;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.button.MaterialButton;
 import com.exemplo.registropresenca.R;
 import com.exemplo.registropresenca.data.local.TokenManager;
 import com.exemplo.registropresenca.utils.BiometricHelper;
 
 public class CadastroActivity extends AppCompatActivity {
+
     private EditText editRa;
-    private Button btnCadastrar;
+    private MaterialButton btnCadastrar;
+    private TextView tvMensagem;
     private CadastroViewModel viewModel;
     private TokenManager tokenManager;
 
@@ -26,19 +29,22 @@ public class CadastroActivity extends AppCompatActivity {
 
         editRa = findViewById(R.id.editRa);
         btnCadastrar = findViewById(R.id.btnCadastrar);
+        tvMensagem = findViewById(R.id.tvMensagem);
 
         btnCadastrar.setOnClickListener(v -> {
             String ra = editRa.getText().toString().trim();
             if (ra.isEmpty()) {
-                Toast.makeText(this, "Digite o RA", Toast.LENGTH_SHORT).show();
+                tvMensagem.setText("Digite o RA do aluno");
+                tvMensagem.setVisibility(android.view.View.VISIBLE);
                 return;
             }
+            tvMensagem.setVisibility(android.view.View.GONE);
             viewModel.validarRa(ra);
         });
 
         viewModel.getAluno().observe(this, aluno -> {
             if (aluno != null) {
-                // RA válido, agora associa com biometria
+                // RA válido, associa com biometria
                 BiometricHelper helper = new BiometricHelper(this);
                 helper.autenticar(new BiometricHelper.BiometricCallback() {
                     @Override
@@ -50,14 +56,16 @@ public class CadastroActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(String mensagem) {
-                        Toast.makeText(CadastroActivity.this, "Biometria falhou: " + mensagem, Toast.LENGTH_LONG).show();
+                        tvMensagem.setText("Biometria falhou: " + mensagem);
+                        tvMensagem.setVisibility(android.view.View.VISIBLE);
                     }
                 });
             }
         });
 
         viewModel.getError().observe(this, error -> {
-            Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+            tvMensagem.setText(error);
+            tvMensagem.setVisibility(android.view.View.VISIBLE);
         });
     }
 }

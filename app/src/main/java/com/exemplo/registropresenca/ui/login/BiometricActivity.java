@@ -4,16 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import com.exemplo.registropresenca.MainActivity; // será a RegistroActivity
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import com.exemplo.registropresenca.R;
 import com.exemplo.registropresenca.data.local.TokenManager;
 import com.exemplo.registropresenca.ui.cadastro.CadastroActivity;
 import com.exemplo.registropresenca.ui.registro.RegistroActivity;
-import com.exemplo.registropresenca.utils.BiometricHelper;
+import java.util.concurrent.Executor;
 
 public class BiometricActivity extends AppCompatActivity {
-    private BiometricHelper biometricHelper;
+
     private TokenManager tokenManager;
 
     @Override
@@ -30,21 +30,38 @@ public class BiometricActivity extends AppCompatActivity {
             return;
         }
 
-        biometricHelper = new BiometricHelper(this);
-        biometricHelper.autenticar(new BiometricHelper.BiometricCallback() {
-            @Override
-            public void onSuccess() {
-                // RA já está salvo
-                startActivity(new Intent(BiometricActivity.this, RegistroActivity.class));
-                finish();
-            }
+        // Configura biometria
+        Executor executor = ContextCompat.getMainExecutor(this);
+        BiometricPrompt biometricPrompt = new BiometricPrompt(this, executor,
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        // Sucesso! Vai para tela de registro
+                        startActivity(new Intent(BiometricActivity.this, RegistroActivity.class));
+                        finish();
+                    }
 
-            @Override
-            public void onFailure(String mensagem) {
-                Toast.makeText(BiometricActivity.this, "Erro: " + mensagem, Toast.LENGTH_LONG).show();
-                // Permite tentar novamente? Fecha o app ou reinicia
-                finish();
-            }
-        });
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        Toast.makeText(BiometricActivity.this, "Falha na autenticação", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onAuthenticationError(int errorCode, CharSequence errString) {
+                        super.onAuthenticationError(errorCode, errString);
+                        Toast.makeText(BiometricActivity.this, "Erro: " + errString, Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Autenticação Biométrica")
+                .setSubtitle("Use sua digital para acessar")
+                .setNegativeButtonText("Cancelar")
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
     }
 }

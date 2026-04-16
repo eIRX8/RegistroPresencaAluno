@@ -61,11 +61,21 @@ android {
         implementation 'androidx.lifecycle:lifecycle-livedata:2.8.7'
         implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-        // Google Play Services (localização)
-        implementation 'com.google.android.gms:play-services-location:21.3.0'
+        // ... outras dependências
+        implementation 'androidx.security:security-crypto:1.0.0'
 
         dependencies {
-            // ... outras dependências
-            implementation 'androidx.security:security-crypto:1.0.0'
+            // Google Play Services (GPS)
+            implementation 'com.google.android.gms:play-services-location:21.3.0'
+
+            // Glide (fotos)
+            implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+            // Material Design
+            implementation 'com.google.android.material:material:1.12.0'
+
+            // CardView
+            implementation 'androidx.cardview:cardview:1.0.0'
         }
+
     }
