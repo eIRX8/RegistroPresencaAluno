@@ -60,12 +60,7 @@ public class RegistroViewModel extends ViewModel {
         });
     }
 
-    /**
-     * Registra a presença do aluno.
-     * Verifica distância entre aluno e unidade escolar antes de salvar.
-     */
     public void registrarPresenca(Location localizacaoAluno) {
-        // Validações
         if (alunoAtual == null) {
             mensagemLiveData.setValue("Dados do aluno não carregados");
             return;
@@ -81,27 +76,18 @@ public class RegistroViewModel extends ViewModel {
             return;
         }
 
-        // Coordenadas do aluno
         double latAluno = localizacaoAluno.getLatitude();
         double lngAluno = localizacaoAluno.getLongitude();
-
-        // Coordenadas da unidade escolar
         double latEscola = unidadeAtual.getLatitude();
         double lngEscola = unidadeAtual.getLongitude();
 
-        // Calcula distância em metros
         float distancia = LocationHelper.calcularDistancia(latAluno, lngAluno, latEscola, lngEscola);
 
-        // Tolerância de 100 metros
         if (distancia > 100) {
-            String msg = "Você não está na escola!\n" +
-                    "Distância: " + (int) distancia + " metros\n" +
-                    "Unidade: " + unidadeAtual.getNome();
-            mensagemLiveData.setValue(msg);
+            mensagemLiveData.setValue("Você não está na escola!\nDistância: " + (int) distancia + " metros\nUnidade: " + unidadeAtual.getNome());
             return;
         }
 
-        // Prepara dados da presença
         SimpleDateFormat sdfData = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         Date agora = new Date();
@@ -109,10 +95,18 @@ public class RegistroViewModel extends ViewModel {
         String data = sdfData.format(agora);
         String horario = sdfHora.format(agora);
 
+        // Obtém o nome da turma (se tiver ID, usa "Turma " + ID, senão usa "Não informada")
+        String nomeTurma = "Não informada";
+        if (alunoAtual.getTurmaId() > 0) {
+            nomeTurma = "Turma " + alunoAtual.getTurmaId();
+        } else if (alunoAtual.getTurma() != null && !alunoAtual.getTurma().isEmpty()) {
+            nomeTurma = alunoAtual.getTurma();
+        }
+
         Presenca presenca = new Presenca(
                 alunoAtual.getRa(),
                 alunoAtual.getNome(),
-                alunoAtual.getTurma(),
+                nomeTurma,
                 data,
                 horario,
                 latAluno,
@@ -120,14 +114,12 @@ public class RegistroViewModel extends ViewModel {
                 "Presente"
         );
 
-        // Salva no Supabase
         loadingLiveData.setValue(true);
         presencaRepository.registrarPresenca(presenca, new PresencaRepository.PresencaCallback() {
             @Override
             public void onSuccess(Presenca presenca) {
                 presencaRegistradaLiveData.setValue(presenca);
                 loadingLiveData.setValue(false);
-                mensagemLiveData.setValue("Presença registrada com sucesso!");
             }
 
             @Override

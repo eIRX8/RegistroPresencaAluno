@@ -12,13 +12,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar">
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
+        android:usesCleartextTraffic="true">
 
-        <!-- Tel
-        a de Login Biométrico -->
+        <!-- Tela de Login Biométrico (Launcher) -->
         <activity
             android:name=".ui.login.BiometricActivity"
-            android:label="AppV2"
+            android:label="AppV3"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,12 +34,12 @@
         <!-- Tela de Registro de Presença -->
         <activity
             android:name=".ui.registro.RegistroActivity"
-            android:label="Informações do Aluno" />
+            android:label="Registro de Presença" />
 
         <!-- Tela de Sucesso -->
         <activity
             android:name=".ui.registro.SucessoActivity"
-            android:label="Registro da Presença" />
+            android:label="Presença Registrada" />
 
     </application>
 

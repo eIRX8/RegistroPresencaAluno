@@ -44,7 +44,6 @@ public class CadastroActivity extends AppCompatActivity {
 
         viewModel.getAluno().observe(this, aluno -> {
             if (aluno != null) {
-                // RA válido, associa com biometria
                 BiometricHelper helper = new BiometricHelper(this);
                 helper.autenticar(new BiometricHelper.BiometricCallback() {
                     @Override

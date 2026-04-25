@@ -1,1 +1,17 @@
 /build
+# Arquivos do Android Studio
+.idea/
+*.iml
+.gradle/
+local.properties
+
+# Arquivos de build
+build/
+app/build/
+app/release/
+app/debug/
+
+# Arquivos temporários
+*.DS_Store
+*.swp
+*.log
